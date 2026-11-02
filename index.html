@@ -113,7 +113,19 @@ body.wt-dialog-open{overflow:hidden}
 #wtQuickOverlay:not(.hidden){position:fixed!important;inset:0!important;z-index:2147483000!important;display:flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important}
 #wtQuickOverlay .wt-day-dialog{pointer-events:auto!important}
 #calendar button.day{touch-action:manipulation;cursor:pointer}
-</style><style id="wt-annual-click-fix">#wtAnnualPanel .wt-year-month{position:relative;z-index:1;touch-action:manipulation;pointer-events:auto}#wtAnnualPanel .wt-year-month *{pointer-events:none}</style><style id="wtCloudStyle">#wtCloudGate{position:fixed;inset:0;z-index:2147483640;background:#0b1327;color:#eef3ff;display:flex;justify-content:center;align-items:center;padding:18px;overflow:auto}#wtCloudGate[hidden]{display:none!important}.wtCloudCard{width:min(100%,450px);background:#1a2743;border:1px solid #48618a;border-radius:20px;padding:22px;box-shadow:0 15px 60px #0008}.wtCloudCard input{width:100%;background:#101b34;border:1px solid #657a9c;border-radius:10px;color:#fff;padding:12px;margin:5px 0 12px}.wtCloudCard button{margin:4px 4px 4px 0}.wtCloudCard p{line-height:1.45;color:#c5d4ed}.wtCloudCard #wtCloudMsg{color:#f9d681;white-space:pre-wrap}.wtCloudTop{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0 12px}.wtCloudTop button{font-size:12px;padding:8px}.wtCloudTop span{font-size:12px;color:#c5d4ed}</style><style id="wt-confirm-patch">#wtQuickPresetSlot .kind-icon.wt-choice-selected{border:2px solid #baff38!important;outline:2px solid #baff38;outline-offset:1px}#wtQuickPresetSlot .wt-confirm-choice{background:#187847!important;color:#fff!important;border:2px solid #83f6aa!important}#wtQuickPresetSlot .wt-confirm-choice:disabled{opacity:.38}</style></head><body><div id="wtCloudGate"><div class="wtCloudCard"><h2>☁ WorkTime UK — konto</h2><p>Twoje godziny, GPS, grafiki i ustawienia mogą być synchronizowane między telefonami. Każda osoba używa własnego konta.</p><label>E-mail<input id="wtCloudEmail" type="email" autocomplete="username" placeholder="adres@email.com"></label><label>Hasło<input id="wtCloudPassword" type="password" autocomplete="current-password" placeholder="minimum 6 znaków"></label><div><button id="wtCloudLogin" class="primary">Zaloguj</button><button id="wtCloudSignup">Utwórz konto</button></div><p id="wtCloudMsg" role="status">Sprawdzanie sesji…</p><small>Przy pierwszym logowaniu zachowamy istniejące dane na tym urządzeniu. Przed synchronizacją z istniejącym kontem wybierzesz, które dane pozostawić.</small></div></div>
+</style><style id="wt-annual-click-fix">#wtAnnualPanel .wt-year-month{position:relative;z-index:1;touch-action:manipulation;pointer-events:auto}#wtAnnualPanel .wt-year-month *{pointer-events:none}</style><style id="wtCloudStyle">#wtCloudGate{position:fixed;inset:0;z-index:2147483640;background:#0b1327;color:#eef3ff;display:flex;justify-content:center;align-items:center;padding:18px;overflow:auto}#wtCloudGate[hidden]{display:none!important}.wtCloudCard{width:min(100%,450px);background:#1a2743;border:1px solid #48618a;border-radius:20px;padding:22px;box-shadow:0 15px 60px #0008}.wtCloudCard input{width:100%;background:#101b34;border:1px solid #657a9c;border-radius:10px;color:#fff;padding:12px;margin:5px 0 12px}.wtCloudCard button{margin:4px 4px 4px 0}.wtCloudCard p{line-height:1.45;color:#c5d4ed}.wtCloudCard #wtCloudMsg{color:#f9d681;white-space:pre-wrap}.wtCloudTop{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0 12px}.wtCloudTop button{font-size:12px;padding:8px}.wtCloudTop span{font-size:12px;color:#c5d4ed}</style><style id="wt-confirm-patch">#wtQuickPresetSlot .kind-icon.wt-choice-selected{border:2px solid #baff38!important;outline:2px solid #baff38;outline-offset:1px}#wtQuickPresetSlot .wt-confirm-choice{background:#187847!important;color:#fff!important;border:2px solid #83f6aa!important}#wtQuickPresetSlot .wt-confirm-choice:disabled{opacity:.38}</style><style id="wt-neon-2026">
+#calendar .day.wt-credited{border-color:var(--kind-border,#3B9B88)!important;box-shadow:none!important;position:relative}
+#calendar .day.wt-credited::after{content:'✓';display:block;position:absolute;left:50%;bottom:2px;transform:translateX(-50%);font-size:18px;font-weight:900;line-height:1;color:#BCFF28;text-shadow:0 0 5px #3BE95A,0 0 10px #2CC96B;pointer-events:none}
+#calendar .day.wt-credited .num{font-weight:900}
+#calendar .day.mark-work,#calendar .day.mark-shift2,#calendar .day.mark-shift3{--kind-bg:#0C676C!important;--kind-border:#18E8F2!important}
+#calendar .day.mark-holiday{--kind-bg:#4D6910!important;--kind-border:#BDFF24!important}
+#calendar .day.mark-off{--kind-bg:#746700!important;--kind-border:#FFE500!important}
+#calendar .day.mark-unpaid{--kind-bg:#74401A!important;--kind-border:#FF9940!important}
+#calendar .day.mark-sickpaid,#calendar .day.mark-sickunpaid{--kind-bg:#46337B!important;--kind-border:#A88BFF!important}
+#wtQuickPresetSlot .kind-icon{transition:transform .15s ease,border-color .15s ease;min-height:64px}
+#wtQuickPresetSlot .kind-icon:active{transform:scale(.96)}
+#wtQuickPresetSlot .wt-confirm-choice{background:#087A3A!important;border-color:#60F49A!important}
+</style></head><body><div id="wtCloudGate"><div class="wtCloudCard"><h2>☁ WorkTime UK — konto</h2><p>Twoje godziny, GPS, grafiki i ustawienia mogą być synchronizowane między telefonami. Każda osoba używa własnego konta.</p><label>E-mail<input id="wtCloudEmail" type="email" autocomplete="username" placeholder="adres@email.com"></label><label>Hasło<input id="wtCloudPassword" type="password" autocomplete="current-password" placeholder="minimum 6 znaków"></label><div><button id="wtCloudLogin" class="primary">Zaloguj</button><button id="wtCloudSignup">Utwórz konto</button></div><p id="wtCloudMsg" role="status">Sprawdzanie sesji…</p><small>Przy pierwszym logowaniu zachowamy istniejące dane na tym urządzeniu. Przed synchronizacją z istniejącym kontem wybierzesz, które dane pozostawić.</small></div></div>
 <nav class="wt-main-nav" id="wtMainNav"><button data-wt-tab="calendar" type="button">▦ Kalendarz</button><button data-wt-tab="pay" type="button">£ Wypłata</button><button data-wt-tab="settings" type="button">⚙ Ustawienia</button><button data-wt-tab="feedback" type="button">✉ Opinie</button></nav><header><div><h1>◷ WorkTime UK</h1><small>Kalendarz pracy i wypłat · podsumowanie i menu</small></div><button id="export">Kopia danych</button></header>
 <section class="panel" data-wt-section="calendar" id="calendarPanel"><div class="wt-topline"><h2 id="wtCalendarTitle">Kalendarz pracy</h2><label class="wt-language">🌐 <select aria-label="Język aplikacji" id="wtLanguage"></select></label></div><div class="nav"><button id="prev">❮</button><strong id="period"></strong><button id="next">❯</button></div><div class="toolbar"><button class="active" data-view="month">Miesiąc</button><button data-view="week">Tydzień</button><button data-view="day">Dzień</button></div><div id="calendarArea"><div class="weekdays"><span>Pn</span><span>Wt</span><span>Śr</span><span>Cz</span><span>Pt</span><span>So</span><span>Nd</span></div><div class="calendar" id="calendar"><div class="day"><span class="num">1</span></div><div class="day"><span class="num">2</span></div><div class="day"><span class="num">3</span></div><div class="day"><span class="num">4</span></div><div class="day"><span class="num">5</span></div><div class="day"><span class="num">6</span></div><div class="day"><span class="num">7</span></div><div class="day"><span class="num">8</span></div><div class="day"><span class="num">9</span></div><div class="day"><span class="num">10</span></div><div class="day"><span class="num">11</span></div><div class="day"><span class="num">12</span></div><div class="day"><span class="num">13</span></div><div class="day"><span class="num">14</span></div><div class="day"><span class="num">15</span></div><div class="day"><span class="num">16</span></div><div class="day"><span class="num">17</span></div><div class="day"><span class="num">18</span></div><div class="day"><span class="num">19</span></div><div class="day"><span class="num">20</span></div><div class="day"><span class="num">21</span></div><div class="day"><span class="num">22</span></div><div class="day"><span class="num">23</span></div><div class="day"><span class="num">24</span></div><div class="day"><span class="num">25</span></div><div class="day"><span class="num">26</span></div><div class="day"><span class="num">27</span></div><div class="day"><span class="num">28</span></div><div class="day"><span class="num">29</span></div><div class="day"><span class="num">30</span></div><div class="day"><span class="num">31</span></div></div></div><div class="single hidden" id="singleDay"></div><div class="panel hidden" id="daySummary"></div><div class="legend">Kolor i skrót pokazują rodzaj zapisanego dnia. Dotknij daty, aby wybrać ikonę.</div></section><section class="panel" data-wt-section="calendar" id="wtCalendarMini"><div class="wt-mini-head"><span id="wtMiniTitle">Zarobki netto — zatwierdzone dni</span><strong id="wtMiniNet">£0.00</strong></div><small id="wtMiniHours">Tylko potwierdzone godziny</small></section><section class="panel hidden" data-wt-section="calendar" id="editPanel"><h2 id="editTitle">Szczegóły dnia</h2><div class="daymode"><button id="dayPrev">❮</button><strong id="dateLabel"></strong><button id="dayNext">❯</button></div><p class="hint" id="dayHint">Wybierz dzień w kalendarzu, aby edytować jego szczegóły.</p><div class="quick-presets"><strong>Wybierz rodzaj dnia</strong><div class="preset-buttons" id="presetButtons"></div></div><div class="daydetail" id="dayFields">
 <div class="advanced hidden"><label class="field">Rodzaj dnia<select id="kind"><option value="work">Praca</option><option value="holiday">Urlop</option><option value="sick">Chorobowe</option><option value="off">Wolne</option></select></label>
@@ -193,7 +205,7 @@ function monthDiff(a,b){let [ay,am]=a.split('-').map(Number),[by,bm]=b.split('-'
 function schemeBalance(s,m){let principal=Math.max(0,num(s.principal)),balance=Math.max(0,principal-num(s.paid)),n=monthDiff(s.startMonth||m,m);if(n<0)return {before:balance,payment:0,after:balance};let rate=Math.max(0,num(s.interest))/1200;for(let i=0;i<n;i++){balance+=balance*rate;balance=Math.max(0,balance-Math.max(0,num(s.installment)))}let before=balance+balance*rate;let payment=s.active===false?0:Math.min(before,Math.max(0,num(s.installment)));return {before,payment,after:Math.max(0,before-payment)}}
 function schemeTotals(m){let gross=0,net=0,rows=[];for(const s of data.settings.schemes){if(!s||!s.name)continue;let v=schemeBalance(s,m);if(v.payment>0){if(s.deduction==='gross')gross+=v.payment;else net+=v.payment}rows.push({s,...v})}return {gross,net,rows}}
 function renderStats(){let mk=monthKey(selected),done=0,regular=0,plan=0,ot=0,g=0,all=0;for(const [k,x] of Object.entries(data.days)){let h=num(x.regular)+num(x.overtime);const completed=x.status==='done';const worked=x.kind==='work'||(!x.kind&&!!x.start);if(completed&&worked)all+=h;if(k.slice(0,7)!==mk)continue;if(completed){if(worked){done+=h;regular+=num(x.regular);ot+=num(x.overtime)}g+=calc(x)}else plan+=h}let sc=schemeTotals(mk);$('regularDone').textContent=hours(regular);$('hoursDone').textContent=hours(done);$('hoursPlanned').textContent=hours(plan);$('otDone').textContent=hours(ot);$('allHours').textContent=hours(all);$('gross').textContent=money(g);$('net').textContent=money(Math.max(0,netEstimate(Math.max(0,g-sc.gross))-sc.net));$('schemeSummary').innerHTML='<b>Rozliczenie prognozy '+esc(mk)+'</b><div>Brutto: '+money(g)+'</div><div>Scheme z brutto: −'+money(sc.gross)+'</div><div>Scheme z netto: −'+money(sc.net)+'</div>'+sc.rows.map(r=>'<div>'+esc(r.s.name)+': rata '+money(r.payment)+' · pozostało '+money(r.after)+'</div>').join('')+'<p class="hint">Podatek, NI i emerytura są szacowane uproszczonym modelem. Potrącenia brutto są traktowane jak salary sacrifice dla podatku i NI; sprawdź zasady swojego programu i payslip.</p>'}
-function payrollConfig(){return {...{basePeriod:'calendar',baseCutoff:15,otPeriod:'calendar',otDelay:0},...(data.settings.payroll||{})}}
+function payrollConfig(){return {...{basePeriod:'payday',baseCutoff:15,otPeriod:'base',otDelay:0},...(data.settings.payroll||{})}}
 function shiftMonthKey(m,offset){let [y,mo]=m.split('-').map(Number);let d=new Date(y,mo-1+offset,1,12);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')}
 function baseRange(m,c){
  if(c.basePeriod==='calendar')return [m+'-01',shiftMonthKey(m,1)+'-01'];
@@ -243,12 +255,27 @@ const DAY_MARKS={work:{icon:'☀',code:'I',color:'#175b4c',border:'#38b99b',labe
 function presetIdForDay(x){if(!x||!Object.keys(x).length)return null;if(x.presetId&&DAY_MARKS[x.presetId])return x.presetId;let p=data.settings.presets.find(p=>p.name===x.presetName);if(p&&DAY_MARKS[p.id])return p.id;if(x.kind==='holiday')return x.paidLeave===false?'unpaid':'holiday';if(x.kind==='sick')return x.paidLeave?'sickpaid':'sickunpaid';if(x.kind==='off')return 'off';if(x.kind==='work')return 'work';return null}
 let activePresetName='',activePresetId='work',activePaidLeave=false;const SHIFT_IDS=['work','shift2','shift3'];function visiblePresets(){let n=Number(data.settings.shiftCount)||1;return data.settings.presets.filter(p=>!SHIFT_IDS.includes(p.id)||SHIFT_IDS.indexOf(p.id)<n)}function syncDayFields(){let work=$('kind').value==='work';$('dayFields').classList.toggle('hidden',!work);$('hoursPreview').classList.toggle('hidden',!work)}
 function applyPreset(p){activePresetId=p.id;activePresetName=p.name;activePaidLeave=p.kind!=='work'&&p.paid;$('kind').value=p.kind;$('start').value=p.start||'';$('end').value=p.end||'';$('break').value=p.break||0;$('breakPaid').value=p.breakPaid||'no';$('regular').value=0;$('overtime').value=0;if(p.kind==='work'&&p.start&&p.end){$('timeCalc').click()}else if(p.paid){$('regular').value=num(data.settings.holidayHours)}$('hoursPreview').innerHTML='<b>'+esc(p.name)+'</b> · '+(p.kind==='work'?'Godziny wyliczone z czasu':'Godziny pracy: 0 h'+(p.paid?' · płatne '+hours(data.settings.holidayHours):' · bezpłatne'));$('dayCalc').textContent=p.kind!=='work'?(p.paid?'Płatny dzień: '+money(num(data.settings.holidayHours)*num(data.settings.rate)):'Dzień bezpłatny'):'';syncDayFields();}
+// A day is earned only after the shift has ended; future shifts remain planned.
+function wtQuickStatus(key,p){
+ const now=new Date(),todayKey=iso(now),work=p.kind==='work';
+ if(key>todayKey)return 'planned';
+ if(key<todayKey)return 'done';
+ if(!work)return 'done';
+ if(!p.start||!p.end)return 'planned';
+ const start=toMinutes(p.start),end=toMinutes(p.end);
+ if(!Number.isFinite(start)||!Number.isFinite(end))return 'planned';
+ // Overnight shifts end on the following calendar day.
+ if(end<=start)return 'planned';
+ const current=now.getHours()*60+now.getMinutes();
+ if(current>=end)return 'done';
+ return confirm('Zmiana jeszcze trwa według grafiku. Czy rzeczywiście zakończyłeś pracę wcześniej?')?'done':'planned';
+}
 // One explicit write path for quick calendar choices; independent of the detail form's save handlers.
 function wtSaveQuickPreset(p){
   const key=iso(selected), old=data.days[key]||{};
   const isWork=p.kind==='work', paid=!isWork&&!!p.paid;
   const x={...old,kind:p.kind,presetId:p.id,presetName:p.name,paidLeave:paid,
-    status:'planned',bankHoliday:false,gpsReview:'pending',
+    status:wtQuickStatus(key,p),bankHoliday:false,gpsReview:'pending',
     start:isWork?(p.start||''):'',end:isWork?(p.end||''):'',
     break:isWork?Number(p.break||0):0,breakPaid:isWork?(p.breakPaid||'no'):'no',
     regular:0,overtime:0,travel:0,travelRate:'',bonus:0,deduction:0};
@@ -264,7 +291,7 @@ function wtSaveQuickPreset(p){
 function wtSaveQuickBH(){
   const key=iso(selected),old=data.days[key]||{};
   data.days[key]={...old,kind:'off',presetId:'bh',presetName:'Bank Holiday',
-    bankHoliday:true,status:'planned',regular:0,overtime:0,travel:0,
+    bankHoliday:true,status:wtQuickStatus(key,{kind:'off'}),regular:0,overtime:0,travel:0,
     start:'',end:'',bonus:0,deduction:0,gpsReview:'pending'};
   save();wtCloseQuickDay();renderAll();
 }
@@ -938,13 +965,17 @@ const observer=new MutationObserver(paintSoon);for(const id of ['calendar','wtAn
 })();</script><script id="wtCloudClient">(function(){'use strict';
 const REF='ofgddytvngswhqfegsvy',KEY='sb_publishable_MJo0et7EwDH1TNet_IW2yw_xCa9g6bK',ROOT='https:'+String.fromCharCode(47,47)+REF+'.supabase.co';
 const APPKEYS=['worktime-uk-v4','wt-family-uk-v1','wt-ui-language-v2','wt-ui-language-chosen'];
+let wtWriteTimer=null,wtApplyingRemote=false;
+const wtNativeSetItem=Storage.prototype.setItem;
+Storage.prototype.setItem=function(k,v){const result=wtNativeSetItem.call(this,k,v);if(this===localStorage&&APPKEYS.includes(k)&&!wtApplyingRemote){clearTimeout(wtWriteTimer);wtWriteTimer=setTimeout(()=>{if(session&&navigator.onLine)syncNow();else setStatus('☁ Zmiany oczekują na internet')},650)}return result};
+
 const SESSION='wt-cloud-session-v1',OWNER='wt-cloud-owner-v1',LEGACY='wt-cloud-legacy-backup-v1';
 const gate=document.getElementById('wtCloudGate'),msg=document.getElementById('wtCloudMsg');
 const email=document.getElementById('wtCloudEmail'),pass=document.getElementById('wtCloudPassword');
 let session=null, busy=false,lastPayload='',syncTimer=null, syncInProgress=false;
 const show=(v)=>{gate.hidden=!v},say=(t)=>{msg.textContent=t};
 function snapshot(){const out={};for(const k of APPKEYS){const v=localStorage.getItem(k);if(v!==null)out[k]=v;}return out;}
-function apply(o){for(const k of APPKEYS){if(Object.prototype.hasOwnProperty.call(o,k))localStorage.setItem(k,o[k]);else localStorage.removeItem(k);}}
+function apply(o){wtApplyingRemote=true;try{for(const k of APPKEYS){if(Object.prototype.hasOwnProperty.call(o,k))localStorage.setItem(k,o[k]);else localStorage.removeItem(k);}}finally{wtApplyingRemote=false}}
 function saveSession(s){session=s;localStorage.setItem(SESSION,JSON.stringify(s));}
 function clearSession(){session=null;localStorage.removeItem(SESSION);}
 function isData(o){return !!(o&&Object.keys(o).length);}
@@ -960,11 +991,10 @@ async function enter(){const user=session.user.id,owner=localStorage.getItem(OWN
  const candidate=isData(local)?local:(cached?JSON.parse(cached):{});
  let chosen=candidate;
  if(remote&&isData(remote.payload)){
-   if(isData(candidate)&&JSON.stringify(candidate)!==JSON.stringify(remote.payload)){
-     const useCloud=confirm('Na koncie są już dane z innego telefonu.\nOK = pobierz dane z chmury.\nAnuluj = wyślij dane z tego telefonu do chmury (zastąpią dane konta).');
-     chosen=useCloud?remote.payload:candidate;
-     if(!useCloud)await putRemote(chosen);
-   }else chosen=remote.payload;
+   // Server wins on login; local copy retained as a recovery backup, never overwrites cloud silently.
+   if(isData(candidate)&&JSON.stringify(candidate)!==JSON.stringify(remote.payload))
+     localStorage.setItem('wt-cloud-recovery-'+user+'-'+Date.now(),JSON.stringify(candidate));
+   chosen=remote.payload;
  }else if(isData(candidate))await putRemote(candidate);
  localStorage.setItem(OWNER,user);apply(chosen);lastPayload=JSON.stringify(snapshot());show(false);
  if(JSON.stringify(current)!==JSON.stringify(chosen)||owner!==user)location.reload();else startSync();
@@ -973,7 +1003,16 @@ async function signIn(signup){if(busy)return;busy=true;say('Łączenie…');try{
  if(signup){const r=await request('/auth/v1/signup',{method:'POST',body:JSON.stringify({email:e,password:p})});if(!r.access_token){say('Konto utworzone. Sprawdź pocztę i potwierdź adres e-mail, następnie zaloguj się.');return}saveSession(r)}
  else saveSession(await request('/auth/v1/token?grant_type=password',{method:'POST',body:JSON.stringify({email:e,password:p})}));
  rememberLegacy();await enter();}catch(e){say('Błąd: '+(e instanceof TypeError?'Nie udało się połączyć z serwerem. Sprawdź internet i spróbuj ponownie.':e.message))}finally{busy=false}}
-function startSync(){if(syncTimer)clearInterval(syncTimer);syncTimer=setInterval(async()=>{if(!session||syncInProgress||document.hidden||!navigator.onLine)return;const now=JSON.stringify(snapshot());if(now===lastPayload)return;syncInProgress=true;try{await putRemote(JSON.parse(now));lastPayload=now;setStatus('☁ Zsynchronizowano')}catch(e){setStatus('⚠ Synchronizacja: '+e.message)}finally{syncInProgress=false}},5000);setStatus('☁ Konto: '+(session.user.email||''));}
+async function syncNow(){
+ if(!session||syncInProgress||!navigator.onLine)return;
+ const payload=JSON.stringify(snapshot());if(payload===lastPayload)return;
+ syncInProgress=true;setStatus('☁ Zapisuję…');
+ try{await putRemote(JSON.parse(payload));lastPayload=payload;setStatus('☁ Zsynchronizowano');
+ if(JSON.stringify(snapshot())!==payload){clearTimeout(wtWriteTimer);wtWriteTimer=setTimeout(syncNow,700)}
+ }catch(e){setStatus('⚠ Oczekuje na synchronizację: '+e.message)}finally{syncInProgress=false}
+}
+function startSync(){if(syncTimer)clearInterval(syncTimer);syncTimer=setInterval(()=>{if(!document.hidden)syncNow()},5000);setStatus('☁ Konto: '+(session.user.email||''));syncNow();}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncNow()});window.addEventListener('online',()=>syncNow());
 function setStatus(t){let x=document.getElementById('wtCloudStatus');if(x)x.textContent=t;}
 async function signOut(){if(!session)return;if(!confirm('Wylogować? Dane tego konta pozostaną w chmurze.'))return;try{await putRemote(snapshot())}catch(e){if(!confirm('Nie udało się wysłać ostatnich zmian. Wylogować mimo to?'))return}const user=session.user.id;localStorage.setItem('wt-cloud-backup-'+user,JSON.stringify(snapshot()));apply({});localStorage.removeItem(OWNER);clearSession();location.reload();}
 function controls(){const header=document.querySelector('header');if(!header||document.getElementById('wtCloudTop'))return;const row=document.createElement('div');row.id='wtCloudTop';row.className='wtCloudTop';row.innerHTML='<span id="wtCloudStatus">☁</span><button id="wtCloudNow" type="button">Synchronizuj</button><button id="wtCloudLogout" type="button">Wyloguj</button>';header.after(row);document.getElementById('wtCloudLogout').onclick=signOut;document.getElementById('wtCloudNow').onclick=async()=>{try{await putRemote(snapshot());lastPayload=JSON.stringify(snapshot());setStatus('☁ Zsynchronizowano')}catch(e){setStatus('⚠ '+e.message)}};}
