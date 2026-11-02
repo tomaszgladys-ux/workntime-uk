@@ -379,9 +379,24 @@ function wtUpdateCurrentPayMini(){
  const hours=document.getElementById('wtMiniHours');
  if(amount)amount.textContent=money(net);
  if(title)title.textContent=en?'Net earnings — approved days':'Zarobki netto — zatwierdzone dni';
- if(period)period.textContent=(en?'Current pay period: ':'Bieżący okres wypłaty: ')+range[0]+' – '+end;
+ // The scheduled monthly payday is separate from weekly hour settlement.
+ let payCycle=null;
+ if(data.settings.paySchedule?.frequency==='monthly'){
+  const candidates=[];
+  for(let offset=-1;offset<=2;offset++){
+   const cycle=payCycleForMonth(shiftMonthKey(nowMonth,offset));
+   if(cycle)candidates.push(cycle);
+  }
+  payCycle=candidates.find(c=>now>=c.previous&&now<c.target)||null;
+ }
+ const payLabel=payCycle
+  ?payCycle.previous+' – '+iso(add(parse(payCycle.target),-1))
+  :range[0]+' – '+end;
+ if(period)period.textContent=(en?'Current pay period: ':'Bieżący okres wypłaty: ')+payLabel+
+  (payCycle?(en?' · payday ':' · wypłata ')+payCycle.target:'');
  if(hours)hours.textContent=(en?'Approved: ':'Zatwierdzone: ')+hoursFormatMini(baseH+otH)+
   (en?' h · estimate':' h · szacunkowe netto')+
+  (payCycle&&cfg.basePeriod==='weekly'?(en?' · settled week: ':' · rozliczany tydzień: ')+range[0]+' – '+end:'')+
   (otRange[0]!==range[0]?' · OT: '+otRange[0]+' – '+iso(add(parse(otRange[1]),-1)):'');
 }
 window.wtUpdateCurrentPayMini=wtUpdateCurrentPayMini;window.addEventListener('focus',()=>{try{wtUpdateCurrentPayMini()}catch(e){console.warn(e)}});function hoursFormatMini(n){return Number(n||0).toLocaleString('en-GB',{maximumFractionDigits:2})}
