@@ -275,7 +275,7 @@ function wtSaveQuickPreset(p){
   const key=iso(selected), old=data.days[key]||{};
   const isWork=p.kind==='work', paid=!isWork&&!!p.paid;
   const x={...old,kind:p.kind,presetId:p.id,presetName:p.name,paidLeave:paid,
-    status:wtQuickStatus(key,p),bankHoliday:false,gpsReview:'pending',
+    status:old.status==='done'&&old.presetId===p.id?'done':'planned',bankHoliday:false,gpsReview:'pending',
     start:isWork?(p.start||''):'',end:isWork?(p.end||''):'',
     break:isWork?Number(p.break||0):0,breakPaid:isWork?(p.breakPaid||'no'):'no',
     regular:0,overtime:0,travel:0,travelRate:'',bonus:0,deduction:0};
@@ -291,7 +291,7 @@ function wtSaveQuickPreset(p){
 function wtSaveQuickBH(){
   const key=iso(selected),old=data.days[key]||{};
   data.days[key]={...old,kind:'off',presetId:'bh',presetName:'Bank Holiday',
-    bankHoliday:true,status:wtQuickStatus(key,{kind:'off'}),regular:0,overtime:0,travel:0,
+    bankHoliday:true,status:old.status==='done'&&old.presetId==='bh'?'done':'planned',regular:0,overtime:0,travel:0,
     start:'',end:'',bonus:0,deduction:0,gpsReview:'pending'};
   save();wtCloseQuickDay();renderAll();
 }
@@ -653,17 +653,51 @@ function wtOpenStableQuick(){
     const m=DAY_MARKS[p.id]||DAY_MARKS.work,b=document.createElement('button');b.type='button';b.className='kind-icon';b.style.setProperty('--kind-bg',m.color);
     const ab=document.createElement('span');ab.className='kind-abbr';ab.textContent=m.code;
     const name=document.createElement('span');name.className='kind-label';name.textContent=wtLanguageNow()==='en'?(labels.en[p.id]||p.name):m.label;
-    b.append(ab,name);b.setAttribute('aria-pressed','false');b.onclick=()=>choose(b,()=>wtSaveQuickPreset(p));grid.appendChild(b);
+    b.append(ab,name);b.onclick=()=>{wtSaveQuickPreset(p);wtOpenStableQuick();};grid.appendChild(b);
   }
-  const bh=document.createElement('button');bh.type='button';bh.className='kind-icon';bh.style.setProperty('--kind-bg','#785626');bh.textContent='🏦 BH';bh.setAttribute('aria-pressed','false');bh.onclick=()=>choose(bh,wtSaveQuickBH);grid.appendChild(bh);
+  const bh=document.createElement('button');bh.type='button';bh.className='kind-icon';bh.style.setProperty('--kind-bg','#FF4FCB');bh.textContent='🏦 BH';bh.onclick=()=>{wtSaveQuickBH();wtOpenStableQuick();};grid.appendChild(bh);
   const confirmButton=document.createElement('button');confirmButton.type='button';confirmButton.className='kind-icon wt-confirm-choice';confirmButton.style.setProperty('--kind-bg','#187847');
-  confirmButton.innerHTML='<span class="kind-symbol">✓</span><span class="kind-label"></span>';
-  confirmButton.querySelector('.kind-label').textContent=wtLanguageNow()==='en'?'Confirm':'Zatwierdź';confirmButton.disabled=true;
-  let pending=null;
-  function choose(button,action){pending=action;grid.querySelectorAll('.kind-icon').forEach(el=>{el.classList.toggle('wt-choice-selected',el===button);el.setAttribute('aria-pressed',String(el===button));});confirmButton.disabled=false;$('wtQuickCurrent').textContent=wtLanguageNow()==='en'?'Selected — tap ✓ Confirm to save.':'Wybrano — naciśnij ✓ Zatwierdź, aby zapisać.';}
-  confirmButton.onclick=()=>{if(pending)pending();};grid.appendChild(confirmButton);slot.appendChild(grid);
+  confirmButton.innerHTML='<span class="kind-symbol">✓</span><span class="kind-label">Zalicz pracę</span>';
+  const current=data.days[iso(selected)];
+  confirmButton.disabled=!current||current.status==='done';
+  confirmButton.onclick=()=>{
+    const key=iso(selected),d=data.days[key];if(!d)return;
+    if(key>iso(new Date()))return alert('Nie można zaliczyć przyszłego dnia.');
+    if(d.kind==='work'){
+      if(!d.start||!d.end)return alert('Najpierw ustaw godziny zmiany.');
+      const [sh,sm]=d.end.split(':').map(Number),[ah,am]=d.start.split(':').map(Number);
+      const overnight=sh*60+sm<=ah*60+am;
+      const endDate=parse(key);if(overnight)endDate.setDate(endDate.getDate()+1);
+      endDate.setHours(sh,sm,0,0);
+      if(new Date()<endDate&&!confirm('Zmiana według grafiku jeszcze się nie skończyła. Czy zakończyłeś pracę wcześniej i chcesz zaliczyć dzień?'))return;
+    }
+    d.status='done';d.gpsReview='confirmed';save();wtCloseQuickDay();renderAll();
+  };
+  grid.appendChild(confirmButton);slot.appendChild(grid);
+  $('wtQuickCurrent').textContent=current?(current.status==='done'?'✓ Dzień już zaliczony do wypłaty.':'Grafik zapisany. ✓ Zalicz pracę dopiero po zakończeniu zmiany.'):'Dotknij ikony, aby od razu zapisać grafik.';
   wtQuickLabels();overlay.classList.remove('hidden');document.body.classList.add('wt-dialog-open');
 }
+// Historical catch-up: user confirms completed scheduled shifts, never automatic.
+(function(){
+ const panel=document.getElementById('wtMiniPeriod')?.parentElement;
+ if(!panel)return;
+ const btn=document.createElement('button');btn.type='button';btn.id='wtApprovePastDays';
+ btn.textContent='✓ Zalicz wcześniejsze przepracowane dni';
+ btn.style.cssText='margin-top:10px;background:#126c44;border:1px solid #64f4aa;color:#fff;border-radius:10px;padding:10px 12px;font-weight:700';
+ btn.onclick=()=>{
+   const now=new Date(),todayKey=iso(now);
+   const cycle=payCycleForMonth(monthKey(now));
+   const begin=cycle?.previous||'2026-10-26';
+   const end=cycle?.target||'9999-12-31';
+   const eligible=Object.entries(data.days).filter(([key,d])=>key>=begin&&key<end&&key<=todayKey&&d.status!=='done'&&d.kind==='work'&&d.start&&d.end&&(()=>{const t=parse(key),[eh,em]=d.end.split(':').map(Number),[sh,sm]=d.start.split(':').map(Number);if(eh*60+em<=sh*60+sm)t.setDate(t.getDate()+1);t.setHours(eh,em,0,0);return t<=now;})());
+   if(!eligible.length)return alert('Nie ma zakończonych, niezaliczonych zmian w bieżącym okresie wypłaty.');
+   const summary=eligible.map(([key,d])=>key+' ('+d.start+'–'+d.end+')').join('\n');
+   if(!confirm('Czy rzeczywiście przepracowałeś wszystkie poniższe dni?\n\n'+summary+'\n\nZaliczyć '+eligible.length+' dni do wypłaty?'))return;
+   eligible.forEach(([key,d])=>{d.status='done';d.gpsReview='confirmed';});
+   save();renderAll();alert('Zaliczono '+eligible.length+' dni.');
+ };
+ panel.appendChild(btn);
+})();
 // Stable delegated handler: survives calendar rerenders and works on nested day labels.
 (function(){
  const cal=document.getElementById('calendar');
