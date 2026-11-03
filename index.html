@@ -682,6 +682,48 @@ function wtOpenStableQuick(){
   $('wtQuickCurrent').textContent=current?(current.status==='done'?'✓ Dzień już zaliczony do wypłaty.':'Grafik zapisany. ✓ Zalicz pracę dopiero po zakończeniu zmiany.'):'Dotknij ikony, aby od razu zapisać grafik.';
   wtQuickLabels();overlay.classList.remove('hidden');document.body.classList.add('wt-dialog-open');
 }
+// WT copy schedule v1: preview and explicit confirmation; never overwrite existing entries.
+(function wtInstallScheduleCopy(){
+  const style=document.createElement('style');style.textContent=`#wtCopyOverlay{position:fixed;inset:0;z-index:11050;background:#020817dd;display:flex;align-items:center;justify-content:center;padding:14px}#wtCopyOverlay.hidden{display:none!important}#wtCopyDialog{width:min(520px,100%);max-height:88vh;overflow:auto;background:#17294b;color:#fff;border:1px solid #647da8;border-radius:18px;padding:18px;box-shadow:0 15px 45px #0009}#wtCopyDialog label{display:block;margin:10px 0 4px;font-size:13px}#wtCopyDialog input{width:100%;box-sizing:border-box;background:#091c37;color:#fff;border:1px solid #7890b4;border-radius:9px;padding:11px;font-size:16px}#wtCopyDialog .wt-copy-actions{display:flex;gap:8px;margin-top:14px}#wtCopyDialog button{flex:1;min-width:0;padding:11px 8px;border-radius:9px;cursor:pointer}#wtCopyPreview{max-height:34vh;overflow:auto;margin-top:12px}#wtCopyPreview .wt-copy-row{padding:7px 0;border-bottom:1px solid #53627d;font-size:13px}#wtCopyOverlay .wt-copy-warning{color:#ffda91;font-size:13px}`;document.head.appendChild(style);
+  const overlay=document.createElement('div');overlay.id='wtCopyOverlay';overlay.className='hidden';overlay.innerHTML=`<section id="wtCopyDialog" role="dialog" aria-modal="true" aria-labelledby="wtCopyHeading"><h2 id="wtCopyHeading">📋 Kopiuj grafik</h2><p>Wybierz dni źródłowe oraz datę wklejenia. Zapis nastąpi dopiero po potwierdzeniu.</p><label for="wtCopyFrom">Kopiuj od</label><input id="wtCopyFrom" type="date"><label for="wtCopyTo">Kopiuj do</label><input id="wtCopyTo" type="date"><label for="wtCopyTarget">Wklej od dnia</label><input id="wtCopyTarget" type="date"><div id="wtCopyPreview" aria-live="polite"></div><div class="wt-copy-actions"><button id="wtCopyCancel" type="button">Anuluj</button><button id="wtCopyShow" type="button">Pokaż podgląd</button><button id="wtCopyConfirm" type="button" hidden>Potwierdź grafik</button></div></section>`;document.body.appendChild(overlay);
+  const el=id=>document.getElementById(id);let proposal=null;
+  function close(){overlay.classList.add('hidden');proposal=null;el('wtCopyConfirm').hidden=true;el('wtCopyShow').hidden=false;el('wtCopyPreview').replaceChildren();document.body.classList.remove('wt-dialog-open')}
+  function open(){wtCloseQuickDay();el('wtCopyFrom').value=iso(weekStart(selected));el('wtCopyTo').value=iso(add(weekStart(selected),6));el('wtCopyTarget').value=iso(add(weekStart(selected),7));proposal=null;el('wtCopyConfirm').hidden=true;el('wtCopyShow').hidden=false;el('wtCopyPreview').replaceChildren();overlay.classList.remove('hidden');document.body.classList.add('wt-dialog-open')}
+  function insertButton(){const grid=el('wtQuickPresetSlot');if(!grid||el('wtCopyLaunch'))return;const b=document.createElement('button');b.type='button';b.id='wtCopyLaunch';b.textContent='📋 Kopiuj grafik';b.style.cssText='width:100%;margin-top:12px;padding:12px;background:#284d8d;border:1px solid #91b6ff;color:white;border-radius:12px;font-weight:700';b.onclick=open;grid.appendChild(b)}
+  const originalOpen=wtOpenStableQuick;wtOpenStableQuick=function(){originalOpen();insertButton()};
+  el('wtCopyCancel').onclick=close;overlay.addEventListener('click',e=>{if(e.target===overlay)close()});
+  for(const id of ['wtCopyFrom','wtCopyTo','wtCopyTarget'])el(id).addEventListener('change',()=>{proposal=null;el('wtCopyConfirm').hidden=true;el('wtCopyShow').hidden=false;el('wtCopyPreview').replaceChildren()});
+  el('wtCopyShow').onclick=()=>{
+    const from=el('wtCopyFrom').value,to=el('wtCopyTo').value,target=el('wtCopyTarget').value,root=el('wtCopyPreview');root.replaceChildren();proposal=null;
+    if(!from||!to||!target||from>to){root.textContent='Wybierz prawidłowe daty.';return}
+    const count=Math.round((parse(to)-parse(from))/86400000)+1;
+    if(count<1||count>366){root.textContent='Możesz skopiować maksymalnie 366 dni jednocześnie.';return}
+    const rows=[],snapshots={};let occupied=0,empty=0,ready=0;
+    for(let i=0;i<count;i++){
+      const src=iso(add(parse(from),i)),dst=iso(add(parse(target),i)),item=data.days[src];
+      const existing=data.days[dst];let status;
+      if(existing){status='POMINIĘTO — w docelowym dniu jest już wpis';occupied++}
+      else if(!item){status='POMINIĘTO — brak grafiku źródłowego';empty++}
+      else{status='DO SKOPIOWANIA';ready++}
+      rows.push({src,dst,status,item:item?JSON.parse(JSON.stringify(item)):null});
+      snapshots[dst]=existing?JSON.stringify(existing):null;
+    }
+    proposal={rows,snapshots,from,to,target};
+    const summary=document.createElement('p');summary.className='wt-copy-warning';summary.textContent=`Do skopiowania: ${ready}. Istniejące wpisy (bez zmian): ${occupied}. Puste dni źródłowe: ${empty}.`;root.appendChild(summary);
+    for(const row of rows){const div=document.createElement('div');div.className='wt-copy-row';div.textContent=`${row.src} → ${row.dst} · ${row.item?(row.item.presetName||row.item.kind||'Grafik'):'Pusto'} · ${row.status}`;root.appendChild(div)}
+    el('wtCopyShow').hidden=true;el('wtCopyConfirm').hidden=ready===0;
+  };
+  el('wtCopyConfirm').onclick=()=>{
+    if(!proposal)return;
+    if(proposal.from!==el('wtCopyFrom').value||proposal.to!==el('wtCopyTo').value||proposal.target!==el('wtCopyTarget').value){alert('Daty się zmieniły. Wyświetl podgląd ponownie.');return}
+    for(const r of proposal.rows){const now=data.days[r.dst];if((now?JSON.stringify(now):null)!==proposal.snapshots[r.dst]){alert('Grafik zmienił się od podglądu. Sprawdź go ponownie.');el('wtCopyShow').onclick();return}}
+    const pending=proposal.rows.filter(r=>r.item&&!proposal.snapshots[r.dst]);
+    if(!confirm(`Zapisać ${pending.length} dni grafiku? Istniejące wpisy pozostaną bez zmian.`))return;
+    for(const r of pending){const copied=JSON.parse(JSON.stringify(r.item));copied.status='planned';delete copied.geoArrival;delete copied.geoDeparture;delete copied.gpsReview;delete copied.gpsStatus;delete copied.approvedAt;data.days[r.dst]=copied}
+    save();close();renderAll();alert(`Skopiowano ${pending.length} dni grafiku jako planowane.`);
+  };
+})();
+
 // Historical catch-up: user confirms completed scheduled shifts, never automatic.
 (function(){
  const panel=document.getElementById('wtMiniPeriod')?.parentElement;
