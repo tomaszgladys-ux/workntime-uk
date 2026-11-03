@@ -1155,4 +1155,29 @@ document.addEventListener('click',function(event){
 },true);
 window.wtOpenSettings=openSettings;
 })();
-</script><style id="wtFriendsUpdateStyle">.wt-main-nav,#wtMainNav{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:3px!important;flex-wrap:nowrap!important}.wt-main-nav button,#wtMainNav button{min-width:0!important;font-size:clamp(9px,2.5vw,12px)!important;padding:10px 1px!important;white-space:normal!important}.wt-friend-tabs{display:flex;gap:8px;margin:12px 0}.wt-friend-tabs button{flex:1}#wtFriendsPanel .field{margin:12px 0}#wtCopyLaunch{position:relative;z-index:2}</style><script id="wtFriendsUpdateScript">(function(){'use strict';const $=id=>document.getElementById(id);const schedules=$('wtFriendSchedulesBody'),invite=$('wtFriendInviteBody');function tab(which){const isInvite=which==='invite';schedules.classList.toggle('hidden',isInvite);invite.classList.toggle('hidden',!isInvite);$('wtFriendSchedules').classList.toggle('primary',!isInvite);$('wtFriendInvite').classList.toggle('primary',isInvite)}$('wtFriendSchedules').onclick=()=>tab('schedules');$('wtFriendInvite').onclick=()=>tab('invite');$('wtSendInvite').onclick=()=>{const val=$('wtInviteRecipient').value.trim(),method=$('wtInviteMethod').value,url='https://tomaszgladys-ux.github.io/workntime-uk/';if(!val){alert('Wpisz adres e-mail lub numer telefonu.');return}const message='Zapraszam Cię do WorkTime UK: '+url;if(method==='email'){if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)){alert('Wpisz prawidłowy adres e-mail.');return}location.href='mailto:'+encodeURIComponent(val)+'?subject='+encodeURIComponent('Zaproszenie do WorkTime UK')+'&body='+encodeURIComponent(message)}else{if(!/^\+?[0-9 ()-]{7,22}$/.test(val)){alert('Wpisz prawidłowy numer telefonu.');return}location.href='sms:'+encodeURIComponent(val)+'?body='+encodeURIComponent(message)}}})();</script></body></html>
+</script><style id="wtFriendsUpdateStyle">.wt-main-nav,#wtMainNav{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:3px!important;flex-wrap:nowrap!important}.wt-main-nav button,#wtMainNav button{min-width:0!important;font-size:clamp(9px,2.5vw,12px)!important;padding:10px 1px!important;white-space:normal!important}.wt-friend-tabs{display:flex;gap:8px;margin:12px 0}.wt-friend-tabs button{flex:1}#wtFriendsPanel .field{margin:12px 0}#wtCopyLaunch{position:relative;z-index:2}</style><script id="wtFriendsUpdateScript">(function(){'use strict';const $=id=>document.getElementById(id);const schedules=$('wtFriendSchedulesBody'),invite=$('wtFriendInviteBody');function tab(which){const isInvite=which==='invite';schedules.classList.toggle('hidden',isInvite);invite.classList.toggle('hidden',!isInvite);$('wtFriendSchedules').classList.toggle('primary',!isInvite);$('wtFriendInvite').classList.toggle('primary',isInvite)}$('wtFriendSchedules').onclick=()=>tab('schedules');$('wtFriendInvite').onclick=()=>tab('invite');$('wtSendInvite').onclick=()=>{const val=$('wtInviteRecipient').value.trim(),method=$('wtInviteMethod').value,url='https://tomaszgladys-ux.github.io/workntime-uk/';if(!val){alert('Wpisz adres e-mail lub numer telefonu.');return}const message='Zapraszam Cię do WorkTime UK: '+url;if(method==='email'){if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)){alert('Wpisz prawidłowy adres e-mail.');return}location.href='mailto:'+encodeURIComponent(val)+'?subject='+encodeURIComponent('Zaproszenie do WorkTime UK')+'&body='+encodeURIComponent(message)}else{if(!/^\+?[0-9 ()-]{7,22}$/.test(val)){alert('Wpisz prawidłowy numer telefonu.');return}location.href='sms:'+encodeURIComponent(val)+'?body='+encodeURIComponent(message)}}})();</script>
+<style id="wtNavCopyRepair20261103">
+#wtMainNav{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:3px!important;width:100%!important;position:sticky!important;top:0!important;z-index:300!important;margin:0 0 8px!important;padding:8px 0!important;background:#0b1327!important;visibility:visible!important;opacity:1!important}
+#wtMainNav>[data-wt-tab]{display:flex!important;align-items:center;justify-content:center;min-width:0!important;padding:10px 1px!important;font-size:clamp(9px,2.4vw,12px)!important;white-space:normal!important;overflow-wrap:anywhere!important;visibility:visible!important}
+#wtQuickPresetSlot #wtCopyLaunch{display:block!important;width:100%!important;margin:12px 0 0!important;grid-column:1/-1!important;visibility:visible!important;opacity:1!important}
+</style>
+<script id="wtNavCopyRepair20261103Script">
+(function(){'use strict';
+const nav=document.getElementById('wtMainNav'),gate=document.getElementById('wtCloudGate');
+// Previous update moved the menu beneath the calendar summary. Restore it to the top.
+if(nav){if(gate&&gate.parentElement===document.body)gate.insertAdjacentElement('afterend',nav);else document.body.insertBefore(nav,document.body.firstChild);}
+const slot=document.getElementById('wtQuickPresetSlot'),copy=document.getElementById('wtCopyLaunch');
+function placeCopy(){
+ if(!slot||!copy)return;
+ if(copy.parentElement!==slot||copy!==slot.lastElementChild)slot.appendChild(copy);
+ copy.hidden=false;copy.style.display='block';
+}
+if(slot&&copy){
+ let pending=false;
+ const observer=new MutationObserver(()=>{if(pending)return;pending=true;queueMicrotask(()=>{pending=false;placeCopy()})});
+ observer.observe(slot,{childList:true});
+ placeCopy();
+}
+})();
+</script>
+</body></html>
