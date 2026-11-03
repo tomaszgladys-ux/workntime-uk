@@ -1120,7 +1120,7 @@ async function syncNow(){
  if(JSON.stringify(snapshot())!==payload){clearTimeout(wtWriteTimer);wtWriteTimer=setTimeout(syncNow,700)}
  }catch(e){setStatus('⚠ Oczekuje na synchronizację: '+e.message)}finally{syncInProgress=false}
 }
-function startSync(){if(syncTimer)clearInterval(syncTimer);syncTimer=setInterval(()=>{if(!document.hidden)syncNow()},5000);setStatus('☁ Konto: '+(session.user.email||''));syncNow();}
+function startSync(){if(syncTimer)clearInterval(syncTimer);syncTimer=setInterval(()=>{if(!document.hidden)syncNow()},5000);setStatus('☁ Zalogowano');syncNow();}
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncNow()});window.addEventListener('online',()=>syncNow());
 function setStatus(t){let x=document.getElementById('wtCloudStatus');if(x)x.textContent=t;}
 async function signOut(){if(!session)return;if(!confirm('Wylogować? Dane tego konta pozostaną w chmurze.'))return;try{await putRemote(snapshot())}catch(e){if(!confirm('Nie udało się wysłać ostatnich zmian. Wylogować mimo to?'))return}const user=session.user.id;localStorage.setItem('wt-cloud-backup-'+user,JSON.stringify(snapshot()));apply({});localStorage.removeItem(OWNER);clearSession();location.reload();}
@@ -1180,4 +1180,40 @@ if(slot&&copy){
 }
 })();
 </script>
+
+<style id="wtBottomNav20261103">
+#wtMainNav {
+  position: relative !important;
+  top: auto !important;
+  bottom: auto !important;
+  z-index: 10 !important;
+  display: grid !important;
+  grid-template-columns: repeat(5,minmax(0,1fr)) !important;
+  gap: 3px !important;
+  width: 100% !important;
+  margin: 12px 0 8px !important;
+  padding: 0 !important;
+  background: #0b1327 !important;
+}
+#wtMainNav > button {
+  min-width: 0 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
+#wtLanguageTop {
+  position: relative !important;
+  margin: 0 0 max(12px,env(safe-area-inset-bottom)) !important;
+}
+</style>
+<script id="wtBottomNav20261103Script">
+(function(){
+  'use strict';
+  const nav = document.getElementById('wtMainNav');
+  const language = document.getElementById('wtLanguageTop');
+  if (!nav || !language) return;
+
+  language.insertAdjacentElement('beforebegin', nav);
+})();
+</script>
+
 </body></html>
