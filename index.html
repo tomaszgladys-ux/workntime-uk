@@ -125,7 +125,7 @@ body.wt-dialog-open{overflow:hidden}
 #wtQuickPresetSlot .kind-icon{transition:transform .15s ease,border-color .15s ease;min-height:64px}
 #wtQuickPresetSlot .kind-icon:active{transform:scale(.96)}
 #wtQuickPresetSlot .wt-confirm-choice{background:#087A3A!important;border-color:#60F49A!important}
-</style></head><body><div id="wtCloudGate"><div class="wtCloudCard"><h2>☁ WorkTime UK — konto</h2><p>Twoje godziny, GPS, grafiki i ustawienia mogą być synchronizowane między telefonami. Każda osoba używa własnego konta.</p><label>E-mail<input id="wtCloudEmail" type="email" autocomplete="username" placeholder="adres@email.com"></label><label>Hasło<input id="wtCloudPassword" type="password" autocomplete="current-password" placeholder="minimum 6 znaków"></label><div><button id="wtCloudLogin" class="primary">Zaloguj</button><button id="wtCloudSignup">Utwórz konto</button></div><p id="wtCloudMsg" role="status">Sprawdzanie sesji…</p><small>Przy pierwszym logowaniu zachowamy istniejące dane na tym urządzeniu. Przed synchronizacją z istniejącym kontem wybierzesz, które dane pozostawić.</small></div></div>
+</style><style id="wt-day-details-v2">#wtQuickPresetSlot .wt-day-facts{display:grid;gap:7px;margin:12px 0}#wtQuickPresetSlot .wt-day-facts>div{display:flex;justify-content:space-between;gap:10px;padding:10px;background:#112341;border:1px solid #3c567b;border-radius:9px}#wtQuickPresetSlot .wt-day-facts span{color:#b9cbe6}#wtQuickPresetSlot .wt-day-facts strong{text-align:right;color:#f3faff}</style></head><body><div id="wtCloudGate"><div class="wtCloudCard"><h2>☁ WorkTime UK — konto</h2><p>Twoje godziny, GPS, grafiki i ustawienia mogą być synchronizowane między telefonami. Każda osoba używa własnego konta.</p><label>E-mail<input id="wtCloudEmail" type="email" autocomplete="username" placeholder="adres@email.com"></label><label>Hasło<input id="wtCloudPassword" type="password" autocomplete="current-password" placeholder="minimum 6 znaków"></label><div><button id="wtCloudLogin" class="primary">Zaloguj</button><button id="wtCloudSignup">Utwórz konto</button></div><p id="wtCloudMsg" role="status">Sprawdzanie sesji…</p><small>Przy pierwszym logowaniu zachowamy istniejące dane na tym urządzeniu. Przed synchronizacją z istniejącym kontem wybierzesz, które dane pozostawić.</small></div></div>
 <nav class="wt-main-nav" id="wtMainNav"><button data-wt-tab="calendar" type="button">▦ Kalendarz</button><button data-wt-tab="pay" type="button">£ Wypłata</button><button data-wt-tab="settings" type="button">⚙ Ustawienia</button><button data-wt-tab="feedback" type="button">✉ Opinie</button></nav><header><div><h1>◷ WorkTime UK</h1><small>Kalendarz pracy i wypłat · podsumowanie i menu</small></div><button id="export">Kopia danych</button></header>
 <section class="panel" data-wt-section="calendar" id="calendarPanel"><div class="wt-topline"><h2 id="wtCalendarTitle">Kalendarz pracy</h2><label class="wt-language">🌐 <select aria-label="Język aplikacji" id="wtLanguage"></select></label></div><div class="nav"><button id="prev">❮</button><strong id="period"></strong><button id="next">❯</button></div><div class="toolbar"><button class="active" data-view="month">Miesiąc</button><button data-view="week">Tydzień</button><button data-view="day">Dzień</button></div><div id="calendarArea"><div class="weekdays"><span>Pn</span><span>Wt</span><span>Śr</span><span>Cz</span><span>Pt</span><span>So</span><span>Nd</span></div><div class="calendar" id="calendar"><div class="day"><span class="num">1</span></div><div class="day"><span class="num">2</span></div><div class="day"><span class="num">3</span></div><div class="day"><span class="num">4</span></div><div class="day"><span class="num">5</span></div><div class="day"><span class="num">6</span></div><div class="day"><span class="num">7</span></div><div class="day"><span class="num">8</span></div><div class="day"><span class="num">9</span></div><div class="day"><span class="num">10</span></div><div class="day"><span class="num">11</span></div><div class="day"><span class="num">12</span></div><div class="day"><span class="num">13</span></div><div class="day"><span class="num">14</span></div><div class="day"><span class="num">15</span></div><div class="day"><span class="num">16</span></div><div class="day"><span class="num">17</span></div><div class="day"><span class="num">18</span></div><div class="day"><span class="num">19</span></div><div class="day"><span class="num">20</span></div><div class="day"><span class="num">21</span></div><div class="day"><span class="num">22</span></div><div class="day"><span class="num">23</span></div><div class="day"><span class="num">24</span></div><div class="day"><span class="num">25</span></div><div class="day"><span class="num">26</span></div><div class="day"><span class="num">27</span></div><div class="day"><span class="num">28</span></div><div class="day"><span class="num">29</span></div><div class="day"><span class="num">30</span></div><div class="day"><span class="num">31</span></div></div></div><div class="single hidden" id="singleDay"></div><div class="panel hidden" id="daySummary"></div><div class="legend">Kolor i skrót pokazują rodzaj zapisanego dnia. Dotknij daty, aby wybrać ikonę.</div></section><section class="panel" data-wt-section="calendar" id="wtCalendarMini"><div class="wt-mini-head"><span id="wtMiniTitle">Zarobki netto — zatwierdzone dni</span><strong id="wtMiniNet">£0.00</strong></div><small id="wtMiniHours">Tylko potwierdzone godziny</small></section><section class="panel hidden" data-wt-section="calendar" id="editPanel"><h2 id="editTitle">Szczegóły dnia</h2><div class="daymode"><button id="dayPrev">❮</button><strong id="dateLabel"></strong><button id="dayNext">❯</button></div><p class="hint" id="dayHint">Wybierz dzień w kalendarzu, aby edytować jego szczegóły.</p><div class="quick-presets"><strong>Wybierz rodzaj dnia</strong><div class="preset-buttons" id="presetButtons"></div></div><div class="daydetail" id="dayFields">
 <div class="advanced hidden"><label class="field">Rodzaj dnia<select id="kind"><option value="work">Praca</option><option value="holiday">Urlop</option><option value="sick">Chorobowe</option><option value="off">Wolne</option></select></label>
@@ -376,13 +376,16 @@ function wtUpdateCurrentPayMini(){
   const start=nowMonth+'-01';
   range=[start,shiftMonthKey(nowMonth,1)];
  }
+ // Dashboard shows earnings accrued since the previous payday, regardless of weekly payroll settlement settings.
+ const activeCycle=[-1,0,1,2].map(offset=>payCycleForMonth(shiftMonthKey(nowMonth,offset))).find(c=>c&&now>=c.previous&&now<c.target);
+ if(activeCycle){range=[activeCycle.previous,activeCycle.target];chosenMonth=activeCycle.target.slice(0,7);}
  const end=iso(add(parse(range[1]),-1));
  let grossBase=0,baseH=0,otH=0,grossOT=0;
  // Overtime may be settled in a different, delayed payroll window.
  const otMonth=shiftMonthKey(chosenMonth,-(Number(cfg.otDelay)||0));
- const otRange=cfg.otPeriod==='base'
+ const otRange=activeCycle?range:(cfg.otPeriod==='base'
    ?(baseRange(otMonth,cfg)||range)
-   :[otMonth+'-01',shiftMonthKey(otMonth,1)+'-01'];
+   :[otMonth+'-01',shiftMonthKey(otMonth,1)+'-01']);
  for(const [date,x] of Object.entries(data.days)){
   if(date>now||x.status!=='done')continue;
   if(date>=range[0]&&date<range[1]){
@@ -421,10 +424,12 @@ function wtUpdateCurrentPayMini(){
   :range[0]+' – '+end;
  if(period)period.textContent=(en?'Current pay period: ':'Bieżący okres wypłaty: ')+payLabel+
   (payCycle?(en?' · payday ':' · wypłata ')+payCycle.target:'');
+ const pendingCount=Object.entries(data.days).filter(([k,d])=>k>=range[0]&&k<range[1]&&k<=now&&d.kind==='work'&&d.status!=='done').length;
  if(hours)hours.textContent=(en?'Approved: ':'Zatwierdzone: ')+hoursFormatMini(baseH+otH)+
   (en?' h · estimate':' h · szacunkowe netto')+
-  (payCycle&&cfg.basePeriod==='weekly'?(en?' · settled week: ':' · rozliczany tydzień: ')+range[0]+' – '+end:'')+
-  (otRange[0]!==range[0]?' · OT: '+otRange[0]+' – '+iso(add(parse(otRange[1]),-1)):'');
+  (payCycle&&cfg.basePeriod==='weekly'?(en?' · weekly settlement in Payroll tab':' · rozliczenie tygodniowe w zakładce Wypłata'):'')+
+  (otRange[0]!==range[0]?' · OT: '+otRange[0]+' – '+iso(add(parse(otRange[1]),-1)):'')+
+  (pendingCount?' · '+pendingCount+' dni pracy czeka na zatwierdzenie':'');
 }
 window.wtUpdateCurrentPayMini=wtUpdateCurrentPayMini;window.addEventListener('focus',()=>{try{wtUpdateCurrentPayMini()}catch(e){console.warn(e)}});function hoursFormatMini(n){return Number(n||0).toLocaleString('en-GB',{maximumFractionDigits:2})}
 function renderAll(){renderCalendar();$('editPanel').classList.toggle('hidden',!editing);loadDay();renderStats();renderPayroll();renderViewNet();wtUpdateCurrentPayMini();renderPays();$('payMonth').value=monthKey(selected);loadPay()};function loadPay(){let p=data.pays[$('payMonth').value]||{};$('payGross').value=p.gross??'';$('payNet').value=p.net??'';$('payDate').value=p.date||'';$('payNote').value=p.note||''}
@@ -698,6 +703,31 @@ function wtOpenStableQuick(){
  };
  panel.appendChild(btn);
 })();
+function wtOpenCompletedDayDetails(){
+ const key=iso(selected),d=data.days[key];if(!d)return wtOpenStableQuick();
+ const overlay=$('wtQuickOverlay'),slot=$('wtQuickPresetSlot');
+ if(overlay.parentElement!==document.body)document.body.appendChild(overlay);
+ $('wtQuickTitle').textContent='Szczegóły dnia · '+dateFmt(selected);
+ $('wtQuickDelete').disabled=false;
+ const total=num(d.regular)+num(d.overtime)+num(d.travel);
+ const approved=d.status==='done';
+ $('wtQuickCurrent').textContent=(approved?'✓ Zatwierdzony · ':'Do zatwierdzenia · ')+(d.presetName||'Praca');
+ slot.replaceChildren();
+ const detail=document.createElement('div');detail.className='wt-day-facts';
+ const fields=[['Zmiana',(d.start||'—')+' – '+(d.end||'—')],['Przerwa',String(d.break||0)+' min'],['Godziny zwykłe',hours(num(d.regular))],['Nadgodziny',hours(num(d.overtime))],['Razem',hours(total)],['Szacunkowe brutto',approved?money(calc(d)):'Zostanie doliczone po zatwierdzeniu']];
+ fields.forEach(([label,value])=>{const line=document.createElement('div');const a=document.createElement('span');a.textContent=label;const b=document.createElement('strong');b.textContent=value;line.append(a,b);detail.appendChild(line)});
+ slot.appendChild(detail);
+ if(!approved){const approve=document.createElement('button');approve.type='button';approve.className='primary';approve.style.cssText='width:100%;margin-top:12px;background:#117a44';approve.textContent='✓ Zalicz zakończoną pracę';approve.onclick=()=>{
+   const [eh,em]=(d.end||'').split(':').map(Number),[sh,sm]=(d.start||'').split(':').map(Number);
+   if(!d.start||!d.end)return alert('Uzupełnij godziny zmiany.');
+   const finished=parse(key);if(eh*60+em<=sh*60+sm)finished.setDate(finished.getDate()+1);finished.setHours(eh,em,0,0);
+   if(new Date()<finished&&!confirm('Zmiana jeszcze trwa. Czy rzeczywiście zakończyłeś pracę?'))return;
+   if(!confirm('Zaliczyć przepracowany dzień '+key+' do wypłaty?'))return;
+   d.status='done';d.gpsReview='confirmed';save();wtCloseQuickDay();renderAll();
+ };slot.appendChild(approve)}
+ const change=document.createElement('button');change.type='button';change.textContent='Zmień grafik / rodzaj dnia';change.style.cssText='margin-top:10px;width:100%';change.onclick=wtOpenStableQuick;slot.appendChild(change);
+ wtQuickLabels();overlay.classList.remove('hidden');document.body.classList.add('wt-dialog-open');
+}
 // Stable delegated handler: survives calendar rerenders and works on nested day labels.
 (function(){
  const cal=document.getElementById('calendar');
@@ -714,7 +744,9 @@ function wtOpenStableQuick(){
      : weekStart(selected);
    selected=add(base,index);
    editing=false;
-   wtOpenStableQuick();
+   const existing=data.days[iso(selected)];
+   if(existing&&existing.kind==='work'&&iso(selected)<=iso(new Date()))wtOpenCompletedDayDetails();
+   else wtOpenStableQuick();
  },true);
 })();
 // Calendar cells open the stable selector directly via renderCalendar().
